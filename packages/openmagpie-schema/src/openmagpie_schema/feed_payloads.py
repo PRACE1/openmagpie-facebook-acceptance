@@ -97,6 +97,15 @@ class NewTweetPayload(FeedItemPayload):
     media: list[dict[str, object]] = []
 
 
+class FacebookPostPayload(FeedItemPayload):
+    """`facebook_post`: one Facebook group post (FacebookConnector)."""
+
+    kind: Literal["facebook_post"]  # required, so a non-facebook dump can't match here
+    group_id: str = ""
+    author_name: str = ""
+    author_id: str = ""
+
+
 # Tried left-to-right so a dump resolves to its concrete variant (matched on the
 # required `kind` literal) and only falls to the permissive base when no variant
 # claims it. Variants REQUIRE their `kind`, so an empty / kind-less dict can't
@@ -112,6 +121,7 @@ FeedItemData = Annotated[
     | HackerNewsFeedPayload
     | HackerNewsCommentPayload
     | NewTweetPayload
+    | FacebookPostPayload
     | FeedItemPayload,
     Field(union_mode="left_to_right"),
 ]

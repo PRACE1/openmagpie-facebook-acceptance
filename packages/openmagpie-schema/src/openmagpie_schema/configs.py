@@ -188,6 +188,21 @@ class TwitterSearchSourceSpec(BaseModel):
         return f'X search: "{self.query}"'
 
 
+class FacebookGroupSourceSpec(BaseModel):
+    """Identity of one Facebook group post stream. Bound to FacebookConnector."""
+
+    SOURCE_KIND: ClassVar[str] = "facebook_posts"
+    URL_FIELDS: ClassVar[tuple[str, ...]] = ()  # no operator-supplied URL to SSRF-check
+
+    kind: Literal["facebook_posts"] = "facebook_posts"
+    group_id: str = Field(..., description="Facebook group ID to poll")
+    limit: int = Field(default=50, ge=1, le=100, description="Max posts per poll")
+    terms: list[str] = Field(default_factory=list, description="Optional search terms")
+
+    def display(self) -> str:
+        return f"Facebook group: {self.group_id}"
+
+
 # The built-ins as a discriminated union over `kind` (defined before the plugin
 # fallback so the built-in kind set can be derived from it below). A built-in kind
 # with a malformed spec fails its typed member here and is rejected by the fallback,
@@ -197,7 +212,8 @@ _BuiltinSourceSpec = Annotated[
     | RssSourceSpec
     | HackerNewsFeedSourceSpec
     | HackerNewsCommentSourceSpec
-    | TwitterSearchSourceSpec,
+    | TwitterSearchSourceSpec
+    | FacebookGroupSourceSpec,
     Field(discriminator="kind"),
 ]
 

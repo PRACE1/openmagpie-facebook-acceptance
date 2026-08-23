@@ -1,0 +1,73 @@
+{
+  "run_at": "2026-08-23T13:38:11.722411+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 4,
+  "records": [
+    {
+      "external_id": "1432149468726558",
+      "kind": "facebook_post",
+      "occurred_at": "2026-08-23 13:31:46+00:00",
+      "source": "facebook_posts",
+      "title": "",
+      "content": "Car for sale 20k negotiable 71273034 Bokaa",
+      "url": "https://web.facebook.com/groups/305056891435827/posts/1432149468726558/",
+      "external_url": "",
+      "parent_external_id": "",
+      "group_id": "305056891435827",
+      "author_name": "",
+      "author_id": ""
+    },
+    {
+      "external_id": "1432148615393310",
+      "kind": "facebook_post",
+      "occurred_at": "2026-08-23 13:30:30+00:00",
+      "source": "facebook_posts",
+      "title": "",
+      "content": "Car for sale 20k negotiable e mo bokaa 71273034",
+      "url": "https://web.facebook.com/groups/305056891435827/posts/1432148615393310/",
+      "external_url": "",
+      "parent_external_id": "",
+      "group_id": "305056891435827",
+      "author_name": "",
+      "author_id": ""
+    },
+    {
+      "external_id": "1431884522086386",
+      "kind": "facebook_post",
+      "occurred_at": "2026-08-23 05:55:59+00:00",
+      "source": "facebook_posts",
+      "title": "",
+      "content": "MUST GO 12K O E TSEYE , IT IS MOVING ...CAL744 09 158",
+      "url": "https://web.facebook.com/groups/305056891435827/posts/1431884522086386/",
+      "external_url": "",
+      "parent_external_id": "",
+      "group_id": "305056891435827",
+      "author_name": "",
+      "author_id": ""
+    },
+    {
+      "external_id": "1432130725395099",
+      "kind": "facebook_post",
+      "occurred_at": "2026-08-23 13:02:10+00:00",
+      "source": "facebook_posts",
+      "title": "",
+      "content": "combi for sale",
+      "url": "https://web.facebook.com/groups/305056891435827/posts/1432130725395099/",
+      "external_url": "",
+      "parent_external_id": "",
+      "group_id": "305056891435827",
+      "author_name": "",
+      "author_id": ""
+    }
+  ],
+  "error": null,
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}

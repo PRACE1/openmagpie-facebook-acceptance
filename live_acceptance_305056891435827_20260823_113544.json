@@ -1,0 +1,20 @@
+{
+  "run_at": "2026-08-23T11:35:44.671033+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 0,
+  "records": [],
+  "error": {
+    "type": "TypeError",
+    "message": "PostsListenAction.__init__() got an unexpected keyword argument 'commit'",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\acceptance.py\", line 43, in main\n    for payload in connector.poll(spec, since=since):\n                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 37, in poll\n    action = self._action_factory()\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\factory.py\", line 87, in action_factory\n    return PostsListenAction(\n        session_manager=session_manager,\n    ...<3 lines>...\n        commit=_noop_commit,\n    )\nTypeError: PostsListenAction.__init__() got an unexpected keyword argument 'commit'\n"
+  },
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}

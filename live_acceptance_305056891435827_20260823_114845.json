@@ -1,0 +1,20 @@
+{
+  "run_at": "2026-08-23T11:49:06.898813+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 0,
+  "records": [],
+  "error": {
+    "type": "AttributeError",
+    "message": "'NormalizedPostRecord' object has no attribute 'permalink'",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\acceptance.py\", line 43, in main\n    for payload in connector.poll(spec, since=since):\n                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 72, in poll\n    if not self._is_valid(record):\n           ~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 103, in _is_valid\n    if not record.permalink:\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\.venv\\Lib\\site-packages\\pydantic\\main.py\", line 1042, in __getattr__\n    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')\nAttributeError: 'NormalizedPostRecord' object has no attribute 'permalink'\n"
+  },
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}

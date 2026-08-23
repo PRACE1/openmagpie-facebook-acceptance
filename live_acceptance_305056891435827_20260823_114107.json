@@ -1,0 +1,20 @@
+{
+  "run_at": "2026-08-23T11:41:21.047961+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 0,
+  "records": [],
+  "error": {
+    "type": "ImportError",
+    "message": "cannot import name 'extract_from_relay' from 'facebook_camofox_client.domain_extraction.post_extractor' (C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_extraction\\post_extractor.py)",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\acceptance.py\", line 43, in main\n    for payload in connector.poll(spec, since=since):\n                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 55, in poll\n    result = self._run_sync(action.execute(envelope))\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 93, in _run_sync\n    return asyncio.run(coro)\n           ~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\runners.py\", line 205, in run\n    return runner.run(main)\n           ~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\runners.py\", line 128, in run\n    return self._loop.run_until_complete(task)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\base_events.py\", line 720, in run_until_complete\n    return future.result()\n           ~~~~~~~~~~~~~^^\n  File \"C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_posts\\listen.py\", line 94, in execute\n    raw_results = await session.execute(\"facebook_group_search\", {\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    })\n    ^^\n  File \"C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_camofox\\session_manager.py\", line 27, in execute\n    from facebook_camofox_client.domain_extraction.post_extractor import extract_from_relay\nImportError: cannot import name 'extract_from_relay' from 'facebook_camofox_client.domain_extraction.post_extractor' (C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_extraction\\post_extractor.py)\n"
+  },
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}

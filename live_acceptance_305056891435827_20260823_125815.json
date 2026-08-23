@@ -1,0 +1,16 @@
+{
+  "run_at": "2026-08-23T12:58:39.018866+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 0,
+  "records": [],
+  "error": null,
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}

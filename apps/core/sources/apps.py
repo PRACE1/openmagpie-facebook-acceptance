@@ -8,3 +8,4 @@ class SourcesConfig(AppConfig):
         # Import connectors so they register their SourcePayload classes
         # with sources.payload_registry at startup.
         from sources import registry  # noqa: F401
+        from sources.connectors import facebook  # noqa: F401

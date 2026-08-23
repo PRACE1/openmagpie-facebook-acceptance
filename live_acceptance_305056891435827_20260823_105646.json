@@ -1,0 +1,20 @@
+{
+  "run_at": "2026-08-23T10:57:09.576550+00:00",
+  "group_id": "305056891435827",
+  "since": null,
+  "record_count": 0,
+  "records": [],
+  "error": {
+    "type": "AttributeError",
+    "message": "'ExtractedPost' object has no attribute 'get'",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\acceptance.py\", line 43, in main\n    for payload in connector.poll(spec, since=since):\n                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 55, in poll\n    result = self._run_sync(action.execute(envelope))\n  File \"C:\\Users\\R5 5600 GT\\openmagpie\\facebook_plugin\\connector.py\", line 93, in _run_sync\n    return asyncio.run(coro)\n           ~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\runners.py\", line 205, in run\n    return runner.run(main)\n           ~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\runners.py\", line 128, in run\n    return self._loop.run_until_complete(task)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\asyncio\\base_events.py\", line 720, in run_until_complete\n    return future.result()\n           ~~~~~~~~~~~~~^^\n  File \"C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_posts\\listen.py\", line 106, in execute\n    normalized = self.normalizer.normalize(post, envelope.account_id, envelope.action_type)\n  File \"C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_records\\normalization.py\", line 45, in normalize\n    validate_identity(raw, expected_group_id=expected_group_id)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\R5 5600 GT\\facebook-camofox-client\\src\\facebook_camofox_client\\domain_records\\normalization.py\", line 28, in validate_identity\n    post_id = raw.get(\"post_id\") or raw.get(\"external_id\")\n              ^^^^^^^\nAttributeError: 'ExtractedPost' object has no attribute 'get'\n"
+  },
+  "provenance": {
+    "source": "facebook_camofox_client",
+    "method": "posts.listen",
+    "storage_state_path": "C:\\Users\\R5 5600 GT\\fb_cookies_playwright.json",
+    "storage_state_exists": true,
+    "connector_kind": "facebook_posts",
+    "connector_module": "facebook_plugin.connector"
+  }
+}
