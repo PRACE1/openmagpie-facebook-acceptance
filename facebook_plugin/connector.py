@@ -10,6 +10,16 @@ from openmagpie_schema.configs import FacebookGroupSourceSpec
 
 
 class FacebookConnector(BaseConnector):
+    """
+    Connector for Facebook group posts.
+
+    Contract:
+    - kind = "facebook_posts"
+    - Yields payloads where occurred_at >= since (inclusive)
+    - Yields in stable chronological order (sorted by occurred_at ascending)
+    - Statelessness: the connector does not persist cursors;
+      the orchestrator is responsible for commit-then-advance.
+    """
     kind = "facebook_posts"
     payloads = [FacebookPostPayload]
 
@@ -30,14 +40,21 @@ class FacebookConnector(BaseConnector):
         )
         result = self._run_sync(action.execute(envelope))
 
+        # Collect valid payloads
+        payloads = []
         for post in result.new_posts:
             payload = FacebookPostPayload.from_record(post)
             if not self._is_valid(payload):
                 continue
-            # --- since guard (fixes the 2 remaining test failures) ---
+            # Inclusive since guard: skip only if occurred_at < since
             if since is not None and payload.occurred_at is not None and payload.occurred_at < since:
                 continue
-            yield payload
+            payloads.append(payload)
+
+        # Stable chronological order: sort by occurred_at ascending
+        payloads.sort(key=lambda p: p.occurred_at or datetime.min.replace(tzinfo=timezone.utc))
+
+        yield from payloads
 
     @staticmethod
     def _is_valid(record) -> bool:

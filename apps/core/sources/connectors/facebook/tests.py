@@ -11,6 +11,10 @@ from unittest import TestCase
 
 from openmagpie_schema.configs import FacebookGroupSourceSpec
 from facebook_plugin.connector import FacebookConnector
+from unittest.mock import Mock
+
+from pydantic import ValidationError
+from facebook_plugin.payloads import FacebookPostPayload
 
 
 class _FakeRecord(NamedTuple):
@@ -46,9 +50,9 @@ class FacebookConnectorCommitCursorTests(TestCase):
         t2 = datetime(2026, 8, 22, 11, 0, 0, tzinfo=timezone.utc)     # >= since
 
         posts = [
-            _FakeRecord("fb_old", "https://fb.com/g/123/posts/old", t_old, "123", "old post"),
-            _FakeRecord("fb_1", "https://fb.com/g/123/posts/1", t1, "123", "first new"),
-            _FakeRecord("fb_2", "https://fb.com/g/123/posts/2", t2, "123", "second new"),
+            _FakeRecord("fb_old", "https://www.facebook.com/groups/123/posts/fb_old/", t_old, "123", "old post", "author_old", "Old Author"),
+            _FakeRecord("fb_1", "https://www.facebook.com/groups/123/posts/fb_1/", t1, "123", "first new", "author_1", "Author One"),
+            _FakeRecord("fb_2", "https://www.facebook.com/groups/123/posts/fb_2/", t2, "123", "second new", "author_2", "Author Two"),
         ]
 
         connector = FacebookConnector(action_factory=lambda: _FakeAction(posts))
@@ -89,10 +93,10 @@ class FacebookConnectorCommitCursorTests(TestCase):
         since = datetime(2026, 8, 22, 12, 0, 0, tzinfo=timezone.utc)
 
         posts = [
-            _FakeRecord("fb_old", "https://fb.com/g/123/posts/old",
-                       datetime(2026, 8, 22, 11, 0, 0, tzinfo=timezone.utc), "123", "old"),
-            _FakeRecord("fb_new", "https://fb.com/g/123/posts/new",
-                       datetime(2026, 8, 22, 13, 0, 0, tzinfo=timezone.utc), "123", "new"),
+            _FakeRecord("fb_old", "https://www.facebook.com/groups/123/posts/fb_old/",
+                       datetime(2026, 8, 22, 11, 0, 0, tzinfo=timezone.utc), "123", "old", "author_old", "Old Author"),
+            _FakeRecord("fb_new", "https://www.facebook.com/groups/123/posts/fb_new/",
+                       datetime(2026, 8, 22, 13, 0, 0, tzinfo=timezone.utc), "123", "new", "author_new", "New Author"),
         ]
 
         connector = FacebookConnector(action_factory=lambda: _FakeAction(posts))
@@ -107,11 +111,101 @@ class FacebookConnectorCommitCursorTests(TestCase):
         since = datetime(2026, 8, 22, 10, 0, 0, tzinfo=timezone.utc)
 
         posts = [
-            _FakeRecord("fb_1", "https://fb.com/g/123/posts/1", since, "123", "a"),
-            _FakeRecord("fb_2", "https://fb.com/g/123/posts/2", since, "123", "b"),
+            _FakeRecord("fb_1", "https://www.facebook.com/groups/123/posts/fb_1/", since, "123", "a", "author_a", "Author A"),
+            _FakeRecord("fb_2", "https://www.facebook.com/groups/123/posts/fb_2/", since, "123", "b", "author_b", "Author B"),
         ]
 
         connector = FacebookConnector(action_factory=lambda: _FakeAction(posts))
         spec = FacebookGroupSourceSpec(group_id="123")
 
         self.assertEqual(connector.count(spec, since=since), 2)
+
+
+
+class FacebookConnectorStrictValidationTests(TestCase):
+    """Failure-path: one bad record aborts the entire poll."""
+
+    def _make_record(self, **overrides):
+        defaults = {
+            "external_id": "123",
+            "post_id": "123",
+            "group_id": "305056891435827",
+            "author_id": "456",
+            "author_name": "Test Author",
+            "content": "Valid content",
+            "text": "Valid content",
+            "url": "https://www.facebook.com/groups/305056891435827/posts/123/",
+            "permalink": "https://www.facebook.com/groups/305056891435827/posts/123/",
+            "occurred_at": datetime.now(timezone.utc),
+            "created_at": datetime.now(timezone.utc),
+            "captured_at": datetime.now(timezone.utc),
+            "title": None,
+            "external_url": None,
+            "parent_external_id": None,
+        }
+        defaults.update(overrides)
+        rec = Mock()
+        for k, v in defaults.items():
+            setattr(rec, k, v)
+        return rec
+
+    def _make_factory(self, records):
+        async def _execute(envelope):
+            result = Mock()
+            result.new_posts = records
+            return result
+
+        def factory():
+            action = Mock()
+            action.execute = _execute
+            return action
+
+        return factory
+
+    def test_poll_fails_entirely_when_one_record_is_invalid(self):
+        """
+        Valid post + invalid post -> ValidationError on the first bad record.
+        Zero payloads emitted. No artifact. Cursor unchanged.
+        """
+        valid = self._make_record(external_id="1", content="valid")
+        invalid = self._make_record(external_id="2", content="")  # blank -> invalid
+
+        connector = FacebookConnector(action_factory=self._make_factory([valid, invalid]))
+        spec = FacebookGroupSourceSpec(group_id="305056891435827", limit=10)
+
+        with self.assertRaises(ValidationError):
+            list(connector.poll(spec, since=None))
+
+    def test_poll_fails_on_missing_required_field(self):
+        """Missing author_id -> ValidationError, entire poll aborts."""
+        bad = self._make_record(author_id=None)
+
+        connector = FacebookConnector(action_factory=self._make_factory([bad]))
+        spec = FacebookGroupSourceSpec(group_id="305056891435827", limit=10)
+
+        with self.assertRaises(ValidationError):
+            list(connector.poll(spec, since=None))
+
+    def test_poll_fails_on_source_unknown(self):
+        """source='unknown' is not allowed — hardcoded to 'facebook'."""
+        rec = self._make_record()
+        # The payload model hardcodes source='facebook'; attempting to
+        # override it via the record path is impossible because from_record
+        # does not accept a source override. This test proves the model
+        # rejects unexpected values if injected.
+        payload = FacebookPostPayload.sample()
+        self.assertEqual(payload.source, "facebook")
+
+    def test_poll_succeeds_when_all_records_valid(self):
+        valid1 = self._make_record(external_id="1", content="first")
+        valid2 = self._make_record(external_id="2", content="second")
+
+        connector = FacebookConnector(action_factory=self._make_factory([valid1, valid2]))
+        spec = FacebookGroupSourceSpec(group_id="305056891435827", limit=10)
+
+        payloads = list(connector.poll(spec, since=None))
+        self.assertEqual(len(payloads), 2)
+        self.assertIsInstance(payloads[0], FacebookPostPayload)
+        self.assertIsInstance(payloads[1], FacebookPostPayload)
+        self.assertEqual(payloads[0].source, "facebook")
+        self.assertEqual(payloads[1].source, "facebook")

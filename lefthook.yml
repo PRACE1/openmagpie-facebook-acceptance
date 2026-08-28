@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    ruff-check:
+      glob: "*.py"
+      run: ruff check facebook_plugin/ scripts/
+    ruff-format:
+      glob: "*.py"
+      run: ruff format --check facebook_plugin/ scripts/
+    mypy:
+      glob: "*.py"
+      run: mypy facebook_plugin/ scripts/
+    facebook-tests:
+      run: pytest apps/core/sources/connectors/facebook/tests.py -v
+    structural:
+      run: python scripts/poll2_verdict_final.py
