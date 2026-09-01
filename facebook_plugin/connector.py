@@ -1,12 +1,12 @@
 import asyncio
 import sys
-from datetime import datetime, timezone
-from typing import Iterator
+from collections.abc import Iterator
+from datetime import UTC, datetime
 
-from sources.connectors.base import BaseConnector
 from facebook_plugin.factory import make_action_factory
 from facebook_plugin.payloads import FacebookPostPayload
 from openmagpie_schema.configs import FacebookGroupSourceSpec
+from sources.connectors.base import BaseConnector
 
 
 class FacebookConnector(BaseConnector):
@@ -20,6 +20,7 @@ class FacebookConnector(BaseConnector):
     - Statelessness: the connector does not persist cursors;
       the orchestrator is responsible for commit-then-advance.
     """
+
     kind = "facebook_posts"
     payloads = [FacebookPostPayload]
 
@@ -52,7 +53,7 @@ class FacebookConnector(BaseConnector):
             payloads.append(payload)
 
         # Stable chronological order: sort by occurred_at ascending
-        payloads.sort(key=lambda p: p.occurred_at or datetime.min.replace(tzinfo=timezone.utc))
+        payloads.sort(key=lambda p: p.occurred_at or datetime.min.replace(tzinfo=UTC))
 
         yield from payloads
 
@@ -64,9 +65,7 @@ class FacebookConnector(BaseConnector):
             return False
         if not getattr(record, "occurred_at", None):
             return False
-        if not getattr(record, "group_id", None):
-            return False
-        return True
+        return bool(getattr(record, "group_id", None))
 
     def _run_sync(self, coro):
         if not asyncio.iscoroutine(coro):

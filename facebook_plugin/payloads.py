@@ -3,8 +3,9 @@ Facebook Post Payload -- strict Pydantic schema.
 Any missing, null, blank, or malformed required field raises ValidationError.
 No fabricated defaults. No empty-string substitution.
 """
-from datetime import datetime, timezone
-from typing import Any, ClassVar, Optional
+
+from datetime import UTC, datetime
+from typing import Any, ClassVar, cast
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -17,6 +18,7 @@ class FacebookPostPayload(BaseModel):
       external_id, group_id, author_id, author_name,
       content, url, occurred_at, captured_at, source
     """
+
     # Registry key -- required by the Django payload registry
     PAYLOAD_KIND: ClassVar[str] = "facebook_posts"
     SOURCE: ClassVar[str] = "facebook"
@@ -24,24 +26,29 @@ class FacebookPostPayload(BaseModel):
     model_config = {"extra": "forbid"}
 
     external_id: str = Field(..., min_length=1)
-    group_id:    str = Field(..., min_length=1)
-    author_id:   str = Field(..., min_length=1)
+    group_id: str = Field(..., min_length=1)
+    author_id: str = Field(..., min_length=1)
     author_name: str = Field(..., min_length=1)
-    content:     str = Field(..., min_length=1)
-    url:         str = Field(..., min_length=1)
+    content: str = Field(..., min_length=1)
+    url: str = Field(..., min_length=1)
     occurred_at: datetime
     captured_at: datetime
 
     source: str = Field(default="facebook", pattern=r"^facebook$")
 
-    title:              Optional[str] = Field(default=None)
-    external_url:       Optional[str] = Field(default=None)
-    parent_external_id: Optional[str] = Field(default=None)
+    title: str | None = Field(default=None)
+    external_url: str | None = Field(default=None)
+    parent_external_id: str | None = Field(default=None)
 
     kind: str = Field(default="facebook_posts", frozen=True)
 
     @field_validator(
-        "external_id", "group_id", "author_id", "author_name", "content", "url",
+        "external_id",
+        "group_id",
+        "author_id",
+        "author_name",
+        "content",
+        "url",
         mode="before",
     )
     @classmethod
@@ -84,12 +91,12 @@ class FacebookPostPayload(BaseModel):
         occurred_at = _get("occurred_at", "created_at")
         captured_at = getattr(record, "captured_at", None)
         if captured_at is None:
-            captured_at = datetime.now(timezone.utc)
+            captured_at = datetime.now(UTC)
         return cls(
             external_id=external_id,
-            group_id=getattr(record, "group_id", None),
-            author_id=getattr(record, "author_id", None),
-            author_name=getattr(record, "author_name", None),
+            group_id=cast(str, getattr(record, "group_id", None)),
+            author_id=cast(str, getattr(record, "author_id", None)),
+            author_name=cast(str, getattr(record, "author_name", None)),
             content=content,
             url=url,
             occurred_at=occurred_at,
@@ -101,7 +108,7 @@ class FacebookPostPayload(BaseModel):
 
     @classmethod
     def sample(cls) -> "FacebookPostPayload":
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         post_id = "1422794306328741"
         group_id = "305056891435827"
         return cls(
