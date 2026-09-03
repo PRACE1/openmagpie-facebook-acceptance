@@ -6,6 +6,7 @@ No fabricated defaults. No empty-string substitution.
 
 from datetime import UTC, datetime
 from typing import Any, ClassVar, cast
+from urllib.parse import urlparse
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -63,10 +64,11 @@ class FacebookPostPayload(BaseModel):
     @classmethod
     def validate_facebook_https(cls, v: str) -> str:
         v = v.strip()
-        if not v.startswith("https://"):
+        parsed = urlparse(v)
+        if parsed.scheme != "https":
             raise ValueError("url must use HTTPS")
-        if "facebook.com" not in v:
-            raise ValueError("url must be a facebook.com domain")
+        if parsed.hostname not in ("www.facebook.com", "facebook.com", "m.facebook.com"):
+            raise ValueError("url must use an approved Facebook hostname")
         return v
 
     @model_validator(mode="after")
