@@ -1,5 +1,79 @@
 # Changelog
 
+## [0.9.0](https://github.com/PRACE1/openmagpie-facebook-acceptance/compare/cli-v0.8.0...cli-v0.9.0) (2026-09-04)
+
+
+### ✨ Features
+
+* **auth:** AuthUser as a shared contract across server, CLI, and web ([#154](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/154)) ([beeaa99](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/beeaa993f6e97071931376719e012219d7525c23))
+* **auth:** personal access tokens for headless CLI login ([#85](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/85)) ([cdc349f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/cdc349f74dd1f86e7e35ffbf8284c8205aa93f95))
+* backfill — re-run a watch action over the previous step's passes ([#163](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/163)) ([5485192](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/548519294605d5f453ac97cd0dcff2faeee6e36c))
+* CLI information-architecture migration (integration branch) ([#76](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/76)) ([adb2b87](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/adb2b8717a7f19cea96437323436c07bd9e42956))
+* **cli:** magpie quickstart wizard + /v1/engines status endpoint ([064685f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/064685f657a81ea2bf34fe75a1e4dfb55fe2661c))
+* **cli:** magpie quickstart wizard + /v1/engines status endpoint ([413e7db](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/413e7db3c86893597107050a296d35536f7c5603))
+* **cli:** pivoted FIELD|VALUE tables for feed get + watch get ([e233900](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/e23390099c1cf7d7c414a2e576091650d8dcf496))
+* **cli:** render feed get as a pivoted FIELD|VALUE table ([d441123](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/d44112340674d7221f82f3a476f42504ee05ad29))
+* **cli:** render watch get as a pivoted FIELD|VALUE table ([66a3a74](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/66a3a74ddb44ef54606519032131b506a776c49e))
+* **cli:** shared aligned table + column headers for every list view ([5925bf2](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/5925bf2154ee637efe007bc6fdddf5f96cdbbc5e))
+* **cli:** shared aligned table for every list view ([35ba2ad](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/35ba2ad9e234b1b4b6051ac52afe7a3384d5874f))
+* **cli:** vendor openmagpie-schema into the wheel for standalone install ([76b3be5](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/76b3be5301dcdfc6a788511ff06e66d2601de718))
+* **cli:** vendor openmagpie-schema into the wheel for standalone install ([82e85e4](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/82e85e43f05a66ae6496bcf989d813c88bf63804))
+* **cli:** watch action deliveries view ([de423d6](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/de423d6542a92d36d0a2607c87ba2e76411dfda0))
+* **core:** make watch-action + source kinds plugin-extensible ([#170](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/170)) ([c4cb1b2](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/c4cb1b2cd50f582d24e7bacce9d0e9bf9e06c253))
+* **engine:** generalize relevance engine to any OpenAI-compatible LLM ([#84](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/84)) ([05767d9](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/05767d9d86bdff752e9e74c748e6a585db9a4ec5))
+* **engine:** per-kind how-to hint on EngineStatus ([edaa6a8](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/edaa6a8c3f51b316ad3855a4615efb5b3e1450d4))
+* extract action (hydrate runs) + magpie activity export ([#137](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/137)) ([e1d7e08](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/e1d7e08430783224d70fefd3be5c016834980459))
+* **feeds + listeners:** create-time watermark, backfill UX, judge ETA ([4e492f0](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/4e492f0879b4c9fcf65bf67705e9009fffd3fc3a))
+* **feeds + listeners:** create-time watermark, backfill UX, judge ETA ([dffcdb7](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/dffcdb72284ca1e53474f0317d4beebcaec3ba55))
+* **feeds:** Feed primitive + Listener subscription model (v1, no backward compat) ([1964637](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/19646376862ece229aeb266f2271cfe9e3c45bec))
+* **feeds:** Feed primitive + Listener subscription model (v1, no backward compat) ([180b72a](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/180b72af142deab58f97dc267ed219fc7534beb1))
+* **feeds:** Source rows + magpie feed source verbs ([722379f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/722379fb23f7e724a5c55588135423e428bb0cdf))
+* Hacker News connectors + linked-article enrichment ([#112](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/112)) ([b294a20](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/b294a20dcda7834e4647ed9ffe1b1f9877fe3855))
+* **listener:** relevance_score, rewind, payload-sample ([eee5883](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/eee5883d315fb43da2aabbd03648139362f8cabd))
+* **listener:** relevance_score, rewind, payload-sample (+ scoping mixins, preview service) ([48cdfd8](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/48cdfd8f4119cbd2894ba046f2923f5e39fdabf4))
+* **listeners:** magpie listener hits — paginated review + JSON / CSV ([774ca7d](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/774ca7d8aa679288a3e87c7b824e4a3d9c7fbb51))
+* one-command quickstart seed (make quickstart -&gt; a real match) ([#69](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/69)) ([00cac92](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/00cac92979eb59879973c61b34f7d9bf49f09e04))
+* pause and resume feeds and watches ([#147](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/147)) ([39f8f85](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/39f8f85af8a612f84f3c137c66fa0bbcff123144))
+* **rss:** challenge-bypass sidecar fallback + connector hardening ([e2bec0c](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/e2bec0c4d9460ebe64b17ae71fd6dd1de5cec79e))
+* **rss:** FlareSolverr sidecar for Cloudflare-challenge fallback ([7740263](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/7740263a9cf31a60d63e348dc3a87743349531f2))
+* **schema:** generate + guard the cross-boundary JSON Schema ([#151](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/151)) ([4b57414](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/4b5741492b18aae2de0aa4ee3d9f1f7090da0c25))
+* **sources:** flatten CuratedFeedConfig.streams into a Source table ([f028618](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/f028618e9b4608435a99516d02eac91bfb1e5b27))
+* **telemetry:** anonymous, opt-in product telemetry ([#123](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/123)) ([8b08f66](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/8b08f66e46737b8fabe5c5ce676dbcbe5991a6f5))
+* **v2:** delivery actions (webhook + log) + stable action ids ([caa0144](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/caa0144c94e120e7c4ac666d282273eb6428ab07))
+* **v2:** relocate SourcePayload, drop Listener / Event / notifier code ([37a07cd](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/37a07cd15e0d60872efb94d2f99814a572ff675c))
+* **v2:** relocate SourcePayload, drop Listener / Event / notifier code ([72ebfb7](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/72ebfb71c1cf3b1d7953c3ad7c4cc77d9a953442))
+* **v2:** watch action activity — run audit-log endpoint + CLI ([5e73222](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/5e73222abdeb0976e972ca5256519e0969f4bab3))
+* **v2:** watch action activity — run audit-log endpoint + CLI ([8d9cc2e](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/8d9cc2e338b0bb56ce69ee248ac53efb748ebee1))
+* **v2:** Watch CRUD vertical slice — schema + server API + magpie watch CLI ([d03914e](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/d03914e091a0de33957b7a42d0af721f730bf4d8))
+* **v2:** Watch CRUD vertical slice — schema + server API + magpie watch CLI ([8e91a18](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/8e91a18fa7af0df76907f0f72227f87b766f1c30))
+* **v2:** WebhookAction + LogAction (delivery actions) ([c0c8005](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/c0c80057dd3132c3de4a26c02ce4efcc9dcf9df0))
+* version visibility + self-upgrade paths ([#165](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/165)) ([6d7786f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/6d7786ff999bf264437a31da7a59fdf74cac2fc0))
+* **watches:** activity summary by window (evaluation-time) + richer run rows ([bf5f12f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/bf5f12f917c2a23fcef42e39be2aad10c9db30c5))
+* **watches:** address actions by id alone (leaf-only CLI + flat routes) ([b4274ab](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/b4274abd6f682294051db097dc51a74c01c8c216))
+* **watches:** leaf-only action CLI + windowed activity summary ([ca7fa6a](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/ca7fa6aac84e4715aa641fb2478f6981b58b6bd3))
+
+
+### 🐛 Bug Fixes
+
+* **cli:** auth-login UX for headless / no-browser sign-in ([#138](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/138)) ([120edda](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/120edda72a9205b2dfd15ad23654cd58cfaf3954))
+* **cli:** dry-run + confirm on watch action add/edit (+ edit recreate warning) ([#133](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/133)) ([0d4cd29](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/0d4cd29b84648dbb7a5d97327ebb1e90241502f1))
+* **cli:** render last_polled_at via isoformat; note policy duck-typing ([77bc4a0](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/77bc4a0af6ab64e9f48f52c9819705f55f0eec5f))
+* **cli:** warn when `feed edit`'s sources block diverges from the feed ([#130](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/130)) ([d02ace9](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/d02ace997b10e4f3d5f05785956c4570c4f36a6c))
+* **feeds:** dry-run create reports the would-be source count ([7de4f1f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/7de4f1f2d964160fb554b4952114677b2341579a))
+* **feeds:** dry-run create reports the would-be source count ([3e1d7f0](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/3e1d7f0dffe9b92b89fe3b0864d62eee9b99769f))
+* **telemetry:** make anonymous telemetry opt-out (Next.js-style) ([#144](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/144)) ([e8c1f68](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/e8c1f6858a6f359fbe0f26e5c84332eb478518db))
+
+
+### 📝 Documentation
+
+* **readme:** point at magpie quickstart + em-dash scrub ([aad8af5](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/aad8af505a740b62cab2a647d086f6ddd2e68f03))
+* **readme:** point at magpie quickstart + em-dash scrub ([a51d6c2](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/a51d6c2723e5b700a4e09e0093a980287c95bd98))
+* **readme:** pre-public fixes + document the background scheduler ([efeabe3](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/efeabe31e50093475fdd85b490b516ad41265ab6))
+* **readme:** reference the CLI README + AGENTS docs; fix CLI activity arity ([8ba3e58](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/8ba3e5856c0d550ea4dd92604a0ffaa8037522fe))
+* **v2:** rewrite core AGENTS.md for watches; refresh root + cli docs ([ae7efd5](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/ae7efd584236e98e9788d466ecee324b7b05ab5f))
+* **v2:** rewrite core AGENTS.md for watches; refresh root + cli docs ([c43f70f](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/c43f70f817918f653d477ce49ea4d1c1a398d7fd))
+* VHS-recorded CLI tour as the README hero ([#86](https://github.com/PRACE1/openmagpie-facebook-acceptance/issues/86)) ([1fcb843](https://github.com/PRACE1/openmagpie-facebook-acceptance/commit/1fcb843ac27613190a814f71317ba5ac1c227eed))
+
 ## [0.8.0](https://github.com/obris-dev/openmagpie/compare/cli-v0.7.0...cli-v0.8.0) (2026-07-23)
 
 
